@@ -2,7 +2,10 @@ from logger import logger_init
 from tester import Tester
 class Solution(Tester):
     def twoSum(self, nums, target):
+        # print(nums)
         cont = [-1, -1]
+        id_nums = [ x for x in range(len(nums))]
+        self.quick_sort(nums, id_nums,0, len(nums)-1)
         for count, num in enumerate(nums):
             new_nums = nums[count + 1:]
             new_target = target - num
@@ -12,7 +15,10 @@ class Solution(Tester):
             else:
                 cont = [count, count + other_num + 1] 
                 break
-        return cont
+        # print(nums)
+        # print("\b")
+        # print(id_nums)
+        return [id_nums[cont[0]], id_nums[cont[1]]]
 
     def binary_search(self, nums, low, high, target):
         if high >= low:
@@ -25,9 +31,29 @@ class Solution(Tester):
 
             elif nums[mid] < target:
                 return self.binary_search(nums, mid + 1, high, target)
-
         else:
             return -1
+
+    def partition(self, arr, id_arr, low, high):
+        i=low-1
+        pivot = arr[high]
+
+        for j in range(low, high):
+            if arr[j] <= pivot:
+                i+=1
+                arr[i], arr[j] = arr[j], arr[i]
+                id_arr[i], id_arr[j] = id_arr[j], id_arr[i]
+                
+        arr[i+1], arr[high] = arr[high], arr[i+1]
+        id_arr[i+1], id_arr[high] = id_arr[high], id_arr[i+1]
+        return i+1
+
+    def quick_sort(self, arr, id_arr, low, high):
+        if low < high:
+            pi = self.partition(arr, id_arr, low, high)
+
+            self.quick_sort(arr, id_arr, low, pi-1)
+            self.quick_sort(arr, id_arr, pi+1, high)
 
 
 
@@ -45,6 +71,9 @@ tests = [
     ],
     [
         [0,4,3,0],0,[0,3]        
+    ],
+    [
+        [150,24,79,50,88,345,3],200,[0,3]
     ]
 ]
 
