@@ -6,6 +6,6 @@ class Tester:
             if func(test[0]) == test[1]:
                 logger.info(f"{count}. Test Passed")
             else:
-                logger.error("Failed: {} insted of: {}".format(func(test[0], test[1]), test[2]))
+                logger.error("Failed: {} insted of: {}".format(func(test[0]), test[1]))
 
 logger = logger_init()
