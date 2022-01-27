@@ -4,22 +4,23 @@ from logger import logger_init
 from tester import Tester
 class Solution(Tester):
     def maxProduct(self, nums):
-        def binary_search(arr, low, high):
+        def binary_search(arr, low , high):
             if low < high:
                 mid = int((low + high) / 2)
-                if nums[mid] > nums[high]:
-                    return binary_search(arr,mid+1,high)
-                if nums[mid] < nums[high]:
-                    return binary_search(arr, low, mid-1)        
+                if high-low == 1:
+                    if arr[high] > arr[low]:
+                        return low
+                    else:
+                        return high
+                if arr[mid] < arr[high]:
+                    return binary_search(arr, low, mid)
+                if arr[mid] > arr[high]:
+                    return binary_search(arr, mid, high)
             else:
                 return low
-        h1 = binary_search(nums, 0, len(nums)-1)
-        if h1 == len(nums)-1:
-            return nums[0]
-        elif h1 == 0:
-            return nums[-1]
-        else:
-            return min(nums[h1-1],nums[h1],nums[h1+1])
+        return nums[binary_search(nums, 0, len(nums)-1)]
+ 
+ 
         
 
 tests = [
@@ -33,12 +34,11 @@ tests = [
         [11,13,15,17], 11
     ]
 ]
-# [1,-1] -> [1],[-1] -> 
-# [1,-1,2]- [1],[-1],[2]
-# [2,-1,2]- [2],[-1],[2]- [1], [2]
-# [-2,1,-3,4,-1,2,1,-5,4]-->[-2,1,-3,4][-1][2,1,-5,4]
-# [-2,1,-3,4][-1][2,1,-5,4] --> [-2,1][-3,4][-1][2,1][-5,4] -->[-1][1][-1][3][-1]
-# [-3,4,-1,2,1]
+
+# [1,2,3] 1 2 3 -> 2 < 3 --> [1,2] 1 < 2 --> 
+# [3,1,2] 3 2 1 -> 1 < 2 --> [3,1] 3 > 1 --> 1
+# [3,1,2] 3 2 1 -> 1 < 2 --> [3,1] 3 > 1 --> 1
+# [2,3,1] 2 3 1 -> 3 > 1 --> [3,1] 3 > 1 --> 1
 
 S = Solution()
 S.tester(S.maxProduct, tests)
