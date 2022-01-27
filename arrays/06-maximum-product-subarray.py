@@ -4,14 +4,15 @@ from logger import logger_init
 from tester import Tester
 class Solution(Tester):
     def maxProduct(self, nums):
-        max_prod = max(nums)
-        curr_min, curr_max = 1, 1 
+        product = nums[0]
+        min_product = 1 
+        max_product = 1
         for num in nums:
-            tmp = curr_max * num
-            curr_max = max(num * curr_max, num * curr_min, num)
-            curr_min = min(tmp, num * curr_min, num)
-            max_prod = max(max_prod, curr_max)
-        return max_prod
+            temp = max_product
+            max_product = max(max_product * num, min_product * num, num)
+            max_product = min(temp * num, min_product * num, num)
+            product = max(product, min_product, max_product)
+        return product
 
 
 tests = [
