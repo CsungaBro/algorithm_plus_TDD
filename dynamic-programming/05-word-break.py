@@ -6,13 +6,17 @@ class Solution(Tester):
     def __init__(self):
         self.num = {0:0}
 
-    def maxProfit(self, text1, text2):
-        pass
-            
-
-
-            
-                    
+    def maxProfit(self, s, wordDict):
+        dp = [False for i in range(len(s)+1)]
+        dp[-1] = True
+        for i in range(len(s)-1,-1,-1):
+            for word in wordDict:
+                if (i+len(word)) <= len(s):
+                    if s[i: i+len(word)] == word:
+                        dp[i] = dp[i + len(word)]
+                    if dp[i]:
+                        break
+        return dp[0]
 
 tests = [
     [
@@ -22,7 +26,7 @@ tests = [
         "applepenapple", ["apple","pen"], True
     ],
     [
-        "catsandog", ["cats","dog","sand","and","cat"], False
+        "catsanddog", ["cat","and","cats","dog","sand","and"], True
     ]
 ]
 
