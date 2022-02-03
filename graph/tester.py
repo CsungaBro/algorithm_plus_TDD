@@ -5,8 +5,8 @@ class Tester:
         logger = logger_init()
         for count, test in enumerate(tests):
             ## Change bellow
-            # func_output = func(test[0],test[1])
-            func_output = func(test[0])
+            func_output = func(test[0],test[1])
+            # func_output = func(test[0])
             ## Change above
             if func_output == test[-1]:
                 logger.info(f"{count}. Test Passed")
