@@ -12,4 +12,4 @@ class Tester:
                 logger.info(f"{count}. Test Passed")
             else:
                 # logger.error("Failed: {} insted of: {}".format(func(test[0],test[1]), test[-1]))
-                logger.error("Failed: {} insted of: {}".format(func_output, test[-1]))
+                logger.error("Failed: \n Given \t \t {} \n insted of: \t {}".format(func_output, test[-1]))
